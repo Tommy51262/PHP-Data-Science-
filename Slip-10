@@ -1,0 +1,93 @@
+Q.1) Write a script to accept two integers(Use html form having 2 textboxes). Write a PHP script to, a. Find mod of the two numbers. b. Find the power of first number raised to the second. c. Find the sum of first n numbers (considering first number as n) d. Find the factorial of second number. (Write separate function for each of the above operations.)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integer Operations</title>
+</head>
+<body>
+    <h2>Enter Two Integers</h2>
+    <form method="post" action="">
+        <label for="number1">First Integer:</label><br>
+        <input type="number" id="number1" name="number1" required><br><br>
+        <label for="number2">Second Integer:</label><br>
+        <input type="number" id="number2" name="number2" required><br><br>
+        <input type="submit" name="submit" value="Calculate">
+    </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $num1 = intval($_POST['number1']);
+        $num2 = intval($_POST['number2']);
+        // Call functions for each operation
+        echo "<h3>Results:</h3>";
+        echo "Mod of $num1 and $num2: " . modOperation($num1, $num2) . "<br>";
+        echo "$num1 raised to the power of $num2: " . powerOperation($num1, $num2) . "<br>";
+        echo "Sum of first $num1 numbers: " . sumOfFirstNNumbers($num1) . "<br>";
+        echo "Factorial of $num2: " . factorial($num2) . "<br>";
+    }
+    // Function to find the mod
+    function modOperation($a, $b) {
+        return $a % $b;
+    }
+    // Function to find power
+    function powerOperation($a, $b) {
+        return pow($a, $b);
+    }
+    // Function to find the sum of first n numbers
+    function sumOfFirstNNumbers($n) {
+        return ($n * ($n + 1)) / 2; // Using the formula n(n + 1)/2
+    }
+    // Function to find factorial
+    function factorial($n) {
+        if ($n < 0) return "Undefined"; // Factorial is not defined for negative numbers
+        if ($n == 0) return 1; // 0! is 1
+        $fact = 1;
+        for ($i = 1; $i <= $n; $i++) {
+            $fact *= $i;
+        }
+        return $fact;
+    }
+    ?>
+</body>
+</html>
+Q.2 A) Write a python program to Display column-wise mean, and median for SOCRHeightWeight dataset. [10]
+import pandas as pd
+# Load the SOCRHeightWeight dataset
+# Adjust the file path as necessary
+file_path = 'SOCRHeightWeight.csv'  # Update the filename if needed
+data = pd.read_csv(file_path)
+# Display the first few rows of the dataset
+print("First few rows of the dataset:")
+print(data.head())
+# Calculate mean and median for each column
+mean_values = data.mean()
+median_values = data.median()
+# Display the results
+print("\nColumn-wise Mean:")
+print(mean_values)
+print("\nColumn-wise Median:")
+print(median_values)
+ Q.2 B) Write a python program to compute sum of Manhattan distance between all pairs of points.
+import numpy as np
+import pandas as pd
+# Load the SOCRHeightWeight dataset
+# Adjust the file path as necessary
+file_path = 'SOCRHeightWeight.csv'  # Update the filename if needed
+data = pd.read_csv(file_path)
+# Extract the relevant columns (assuming height and weight)
+# You might need to adjust column names based on the dataset
+points = data[['Height', 'Weight']].to_numpy()
+# Compute the sum of Manhattan distances
+def manhattan_distance_sum(points):
+    total_distance = 0
+    num_points = points.shape[0]
+    for i in range(num_points):
+        for j in range(i + 1, num_points):
+            distance = np.abs(points[i] - points[j]).sum()
+            total_distance += distance
+    return total_distance
+total_manhattan_distance = manhattan_distance_sum(points)
+# Display the result
+print("\nSum of Manhattan distances between all pairs of points:")
+print(total_manhattan_distance)
