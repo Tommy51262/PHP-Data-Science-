@@ -1,0 +1,78 @@
+Q.1) Design HTML 5 Page Using CSS Which Displays the following Navigation Bar [15]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <link rel="stylesheet" href="styles.css">
+  <style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.navbar {
+    background-color: #333;
+}
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.navbar li {
+    float: left;
+}
+.navbar a {
+    display: block;
+    color: blue;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.content {
+    padding: 20px;
+}
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#java">Java</a></li>
+            <li><a href="#html">HTML</a></li>
+            <li><a href="#css">CSS</a></li>
+        </ul>
+    </nav>
+ </body>
+</html>
+Q.2) Write a Python program to perform the following tasks : a. Apply OneHot coding on Country column. b. Apply Label encoding on purchased column (Data.csv have two categorical column the country column, and the purchased column). [15]
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+# Load the dataset
+df = pd.read_csv('Data.csv')
+# Display the first few rows of the DataFrame
+print("Original DataFrame:")
+print(df.head())
+# a. Apply OneHot encoding on the Country column
+onehot_encoder = OneHotEncoder(sparse=False)
+country_encoded = onehot_encoder.fit_transform(df[['Country']])
+# Create a DataFrame with the OneHot encoded columns
+country_encoded_df = pd.DataFrame(country_encoded, columns=onehot_encoder.get_feature_names_out(['Country']))
+# Concatenate the original DataFrame with the OneHot encoded DataFrame
+df_encoded = pd.concat([df, country_encoded_df], axis=1)
+# Drop the original Country column
+df_encoded.drop('Country', axis=1, inplace=True)
+print("\nDataFrame after OneHot encoding Country column:")
+print(df_encoded.head())
+# b. Apply Label encoding on the Purchased column
+label_encoder = LabelEncoder()
+df_encoded['Purchased'] = label_encoder.fit_transform(df_encoded['Purchased'])
+print("\nDataFrame after Label encoding Purchased column:")
+print(df_encoded.head())
+# Optionally, save the modified DataFrame back to CSV
+df_encoded.to_csv('Data_encoded.csv', index=False)
