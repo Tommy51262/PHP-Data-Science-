@@ -1,0 +1,78 @@
+Q.1) Create following Bootstrap Web Layout Design and change Title, add your personal information, educational information, job profile.
+<html lang="en">
+<head>
+<title>NR Class</title>
+<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="jumbotron">
+<center><h1>My First Bootstrap Page</h1></center>
+<center><p>This is responsive</p></center>
+</div>
+<div class="row">
+<div class="col-3 offset-1 bg-light">
+<h4>Personal Information</h4>
+<p>name</p>
+</div>
+<div class="col-3 offset-1 bg-light">
+<h4>Educational Information</h4>
+<p>name</p>
+</div>
+<div class="col-3 offset-1 bg-light">
+<h4>Job Profile</h4>
+<p>name</p>
+</div>
+</div>
+</body>
+</html>
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options. [10]
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Generate a random array of 50 integers between 1 and 100
+random_array = np.random.randint(1, 101, size=50)
+# Set up the plotting area
+plt.figure(figsize=(15, 10))
+# Line Chart
+plt.subplot(2, 2, 1)
+plt.plot(random_array, color='blue', marker='o', linestyle='-', linewidth=2)
+plt.title('Line Chart of Random Array', fontsize=14)
+plt.xlabel('Index', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.grid()
+# Scatter Plot
+plt.subplot(2, 2, 2)
+plt.scatter(range(len(random_array)), random_array, color='green', alpha=0.7)
+plt.title('Scatter Plot of Random Array', fontsize=14)
+plt.xlabel('Index', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.grid()
+# Histogram
+plt.subplot(2, 2, 3)
+plt.hist(random_array, bins=10, color='orange', alpha=0.7)
+plt.title('Histogram of Random Array', fontsize=14)
+plt.xlabel('Value', fontsize=12)
+plt.ylabel('Frequency', fontsize=12)
+# Box Plot
+plt.subplot(2, 2, 4)
+sns.boxplot(data=random_array, color='purple')
+plt.title('Box Plot of Random Array', fontsize=14)
+plt.ylabel('Value', fontsize=12)
+# Adjust layout
+plt.tight_layout()
+plt.show()
+Q.2 B) Write a Python program to print the shape, number of rows-columns, data types, feature names and the description of the data(Use User_Data.csv)
+import pandas as pd
+# Load the User_Data.csv
+df = pd.read_csv('User_Data.csv')
+# Print the shape of the DataFrame
+print("Shape of the DataFrame:", df.shape)
+# Print number of rows and columns
+print("Number of Rows:", df.shape[0])
+print("Number of Columns:", df.shape[1])
+# Print data types of each column
+print("\nData Types:\n", df.dtypes)
+# Print feature names
+print("\nFeature Names:\n", df.columns.tolist())
+# Print description of the data
+print("\nDescription of the Data:\n", df.describe(include='all'))
