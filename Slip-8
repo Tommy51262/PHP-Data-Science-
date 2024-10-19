@@ -1,0 +1,83 @@
+Q.1) Design an HTML form to accept two strings from the user. Write a PHP script for the following. a. Find whether the small string appears at the start of the large string. b. Find the position of the small string in the big string. c. Compare both the string for first n characters, also the comparison should not be case sensitive
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Operations</title>
+</head>
+<body>
+    <h1>String Operations</h1>
+    <form action="process.php" method="post">
+        <label for="largeString">Large String:</label><br>
+        <input type="text" id="largeString" name="largeString" required><br><br>
+       
+        <label for="smallString">Small String:</label><br>
+        <input type="text" id="smallString" name="smallString" required><br><br>
+       
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+Php
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $largeString = $_POST['largeString'];
+    $smallString = $_POST['smallString'];
+    // a. Check if the small string appears at the start of the large string
+    $startsWith = strpos($largeString, $smallString) === 0;
+    // b. Find the position of the small string in the large string
+    $position = strpos($largeString, $smallString);
+    // c. Compare both strings for the first n characters (case insensitive)
+    $n = min(strlen($largeString), strlen($smallString)); // Compare based on the smaller string's length
+    $comparisonResult = strncasecmp($largeString, $smallString, $n) === 0;
+    echo "<h2>Results:</h2>";
+    echo "<p>Large String: <strong>" . htmlspecialchars($largeString) . "</strong></p>";
+    echo "<p>Small String: <strong>" . htmlspecialchars($smallString) . "</strong></p>";
+   
+    // a. Output result for startsWith
+    if ($startsWith) {
+        echo "<p>The small string <strong>does</strong> appear at the start of the large string.</p>";
+    } else {
+        echo "<p>The small string <strong>does not</strong> appear at the start of the large string.</p>";
+    }
+    // b. Output position of small string
+    if ($position !== false) {
+        echo "<p>The position of the small string in the large string is: <strong>" . $position . "</strong>.</p>";
+    } else {
+        echo "<p>The small string is <strong>not found</strong> in the large string.</p>";
+    }
+    // c. Output comparison result
+    if ($comparisonResult) {
+        echo "<p>The first <strong>$n</strong> characters of both strings are <strong>equal</strong> (case insensitive).</p>";
+    } else {
+        echo "<p>The first <strong>$n</strong> characters of both strings are <strong>not equal</strong> (case insensitive).</p>";
+    }
+}
+?>
+Q.2) Write a program in python to perform following task : [15] Standardizing Data (transform them into a standard Gaussian distribution with a mean of 0 and a standard deviation of 1) (Use winequality-red.csv)
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+# Load the dataset
+file_path = 'winequality-red.csv'  # Adjust this path as needed
+data = pd.read_csv(file_path, sep=';')  # The separator is a semicolon in this dataset
+# Display the first few rows of the original data
+print("Original Data:")
+print(data.head())
+# Initialize the StandardScaler
+scaler = StandardScaler()
+# Standardize the data (excluding the target variable 'quality')
+# Assuming 'quality' is the last column in the dataset
+features = data.iloc[:, :-1]  # All columns except the last one
+target = data.iloc[:, -1]  # The last column, which is 'quality'
+# Fit and transform the features
+standardized_features = scaler.fit_transform(features)
+# Create a new DataFrame for the standardized data
+standardized_data = pd.DataFrame(standardized_features, columns=features.columns)
+# Append the target variable to the standardized data
+standardized_data['quality'] = target.values
+# Display the first few rows of the standardized data
+print("\nStandardized Data:")
+print(standardized_data.head())
+# Optionally, save the standardized data to a new CSV file
+standardized_data.to_csv('standardized_winequality_red.csv', index=False)
