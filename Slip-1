@@ -1,0 +1,57 @@
+Q.1) Write the HTML code for generating the form as shown below. Apply the internal CSS to following form to change the font size of the heading to 6pt and change the color to red and also change the background color to yellow.
+<html>
+<head>
+<title>slip 1</title>
+<style>
+body{background-color:whitesmoke;}
+table {background-color: turquoise;}
+h3 { font-size: 6pt; color:red;}
+</style>
+</head>
+<body>
+<center>
+<h1> Project Management </h1>
+<table border="3" height="200px" width="400px">
+<form name=frmlogin><br>
+<tr><td>Enter Project Name:</td><td><input type=text name=t1
+placeholder=projectname><br><br></td></tr>
+<tr><td>Assignned to:</td><td><select name="Names" id="nm" form="frmlogin">
+<option value="ross">Ross Geller</option>
+<option value="chuck">Chuck Bass</option>
+<option value="rachel">Rachel Green </option>
+<option value="dan">Dan James</option>
+</select></td></tr>
+<tr><td>Start Date:</td><td><input type="date" ></td></tr>
+<tr><td>End Date:</td><td><input type="date"> </td></tr>
+<tr><td>Priority:</td><br>
+<td><input type=radio name=ck value="high">High<br>
+<input type=radio name=ck value="avg">Average <br>
+<input type=radio name=ck value="low">Low</td></tr>
+<tr><td>Description:</td><td><input type=text name="dt"
+value="description"></td></tr>
+<tr><td><input type=submit value ="submit"></td>
+<td><input type=reset value ="clear"></td></tr>
+</table>
+</center>
+</body>
+</html>
+A) Write a Python program to create a Pie plot to get the frequency of the three species of the Iris data (Use iris.csv) [10]
+import pandas as pd
+import matplotlib.pyplot as plt
+# Load the Iris dataset
+iris_data = pd.read_csv('iris.csv')
+# Get the frequency of each species
+species_counts = iris_data['species'].value_counts()
+# Create a pie plot
+plt.figure(figsize=(8, 6))
+plt.pie(species_counts, labels=species_counts.index, autopct='%1.1f%%', startangle=90)
+plt.title('Frequency of Iris Species')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.show()
+B) Write a Python program to view basic statistical details of the data.(Use wineequality-red.csv)
+import pandas as pd
+# Load the wine quality dataset
+wine_data = pd.read_csv('winequality-red.csv')
+# Display basic statistical details
+statistics = wine_data.describe()
+print(statistics)
