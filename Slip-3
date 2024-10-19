@@ -1,0 +1,81 @@
+Q.1) Write a program using html with following CSS specifications- [15] i. The background colour of the company name should be in green. ii. The text colour of the company name should be red. iii. The heading should be large –with font ''comic sans ms'' iv. The description of the company should be displayed in blue color in a paragraph.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+/* Navigation Bar Styling */
+.navbar {
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center the links */
+}
+.nav-list li {
+    margin: 0 15px; /* Space between links */
+}
+.nav-link {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: blue; /* Set the text color to blue */
+    transition: color 0.3s; /* Smooth color transition */
+}
+.nav-link:hover {
+    color: darkblue; /* Change color on hover */
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#" class="nav-link">JAVA</a></li>
+            <li><a href="#" class="nav-link">HTML</a></li>
+            <li><a href="#" class="nav-link">CSS</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
+ A)Write a Python program to create box plots to see how each feature i.e. Sepal Length, Sepal Width, Petal Length, Petal Width are distributed across the three species. (Use iris.csv dataset) [10]
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+# Load the Iris dataset
+df = pd.read_csv('iris.csv')
+# Set the style for the plot
+sns.set(style="whitegrid")
+# Create box plots for each feature grouped by species
+features = ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth']
+for feature in features:
+    plt.figure(figsize=(8, 6))
+    sns.boxplot(x='Species', y=feature, data=df)
+    plt.title(f'Box Plot of {feature} by Species')
+    plt.xlabel('Species')
+    plt.ylabel(feature)
+    plt.tight_layout()
+    plt.show()
+ Q.2 B) Write a Python program to view basic statistical details of the data (Use Heights and Weights Dataset)
+import pandas as pd
+# Load the Heights and Weights dataset
+df = pd.read_csv('heights_weights.csv')
+# View basic statistical details
+print("Basic Statistical Details:\n")
+print(df.describe())
