@@ -1,0 +1,66 @@
+<html>
+<body>
+<table border = 1>
+<caption>list of book </caption>
+<tr>
+<td rowspan=2>item no </td>
+<td rowspan=2>Item name </td>
+<td colspan=2 > price
+<tr>
+<td >Rs </td>
+<td >paise</td>
+</td>
+</tr>
+</tr>
+<tr>
+<td>1</td>
+<td>programming in python </td>
+<td>500</td><td>50</td>
+</tr>
+<tr>
+<td>2</td>
+<td>programming in java </td>
+<td>345</td><td>00</td>
+</tr>
+</body>
+</html>
+A) Write a Python program for Handling Missing Value. Replace missing value of salary, age column with mean of that column.(Use Data.csv file). [5]
+import pandas as pd
+# Load the dataset
+df = pd.read_csv('Data.csv')
+# Check for missing values
+print("Missing values before imputation:\n", df.isnull().sum())
+# Replace missing values with mean
+df['salary'].fillna(df['salary'].mean(), inplace=True)
+df['age'].fillna(df['age'].mean(), inplace=True)
+# Check for missing values after imputation
+print("Missing values after imputation:\n", df.isnull().sum())
+# Save the modified DataFrame back to CSV if needed
+df.to_csv('Data_cleaned.csv', index=False)
+Q.2 B) Write a Python program to generate a line plot of name Vs salary [5]
+import pandas as pd
+import matplotlib.pyplot as plt
+# Load the dataset
+df = pd.read_csv('Data.csv')
+# Plotting
+plt.figure(figsize=(10, 5))
+plt.plot(df['name'], df['salary'], marker='o')
+plt.title('Name vs Salary')
+plt.xlabel('Name')
+plt.ylabel('Salary')
+plt.xticks(rotation=45)
+plt.grid()
+plt.tight_layout()
+plt.show()
+Q.2 C) Download the heights and weights dataset and load the dataset froma given csv file into a dataframe. Print the first, last 10 rows and random 20 rows also display shape of the dataset
+import pandas as pd
+# Load the dataset
+df = pd.read_csv('heights_weights.csv')
+# Print the first 10 rows
+print("First 10 rows:\n", df.head(10))
+# Print the last 10 rows
+print("\nLast 10 rows:\n", df.tail(10))
+# Print 20 random rows
+print("\nRandom 20 rows:\n", df.sample(20))
+# Display shape of the dataset
+print("\nShape of the dataset:", df.shape)
