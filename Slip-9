@@ -1,0 +1,97 @@
+Q.1) Write a PHP script for the following: Design a form having a text box and a drop down list containing any 3 separators(e.g. #, |, %, @, ! or comma) accept a strings from the user and also a separator. a. Split the string into separate words using the given separator. b. Replace all the occurrences of separator in the given string with some other separator. c. Find the last word in the given string.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Manipulation</title>
+</head>
+<body>
+    <h2>String Manipulation Form</h2>
+    <form method="post" action="">
+        <label for="inputString">Enter a string:</label><br>
+        <input type="text" id="inputString" name="inputString" required><br><br>
+        <label for="separator">Choose a separator:</label><br>
+        <select id="separator" name="separator" required>
+            <option value="#">#</option>
+            <option value="|">|</option>
+            <option value="%">%</option>
+        </select><br><br>
+        <label for="newSeparator">New separator:</label><br>
+        <input type="text" id="newSeparator" name="newSeparator" required><br><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $inputString = $_POST['inputString'];
+        $separator = $_POST['separator'];
+        $newSeparator = $_POST['newSeparator'];
+        // a. Split the string into separate words using the given separator
+        $words = explode($separator, $inputString);
+        echo "<h3>Words after splitting:</h3>";
+        echo "<pre>";
+        print_r($words);
+        echo "</pre>";
+        // b. Replace all occurrences of separator in the given string with some other separator
+        $replacedString = str_replace($separator, $newSeparator, $inputString);
+        echo "<h3>String after replacing '$separator' with '$newSeparator':</h3>";
+        echo "<pre>$replacedString</pre>";
+        // c. Find the last word in the given string
+        $lastWord = end($words);
+        echo "<h3>Last word in the string:</h3>";
+        echo "<pre>$lastWord</pre>";
+    }
+    ?>
+</body>
+</html>
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot. Apply appropriate color, labels and styling options. [5]
+import numpy as np
+import matplotlib.pyplot as plt
+# Generate a random array of 50 integers between 0 and 100
+random_array = np.random.randint(0, 101, size=50)
+# Create a figure with two subplots: one for the line chart and one for the scatter plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+# Line Chart
+ax1.plot(random_array, color='blue', marker='o', linestyle='-', linewidth=2)
+ax1.set_title('Line Chart of Random Integers', fontsize=14)
+ax1.set_xlabel('Index', fontsize=12)
+ax1.set_ylabel('Value', fontsize=12)
+ax1.grid(True)
+# Scatter Plot
+ax2.scatter(range(50), random_array, color='red', s=50, alpha=0.7)
+ax2.set_title('Scatter Plot of Random Integers', fontsize=14)
+ax2.set_xlabel('Index', fontsize=12)
+ax2.set_ylabel('Value', fontsize=12)
+ax2.grid(True)
+# Show the plots
+plt.tight_layout()
+plt.show()
+Q.2 B) Create two lists, one representing subject names and the other representing marks obtained in those subjects. Display the data in a pie chart. [5]
+import matplotlib.pyplot as plt
+# Define subject names and corresponding marks
+subjects = ['Math', 'Science', 'English', 'History', 'Art']
+marks = [85, 90, 78, 92, 88]
+# Create a pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(marks, labels=subjects, autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors)
+plt.title('Marks Distribution by Subject', fontsize=16)
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+# Show the pie chart
+plt.show()
+Q.2 C) Write a program in python to perform following task (Use winequality-red.csv ) [5] Import Dataset and do the followings: a) Describing the dataset b) Shape of the dataset c) Display first 3 rows from dataset
+import pandas as pd
+# Load the dataset
+file_path = 'winequality-red.csv'  # Adjust this path as needed
+data = pd.read_csv(file_path, sep=';')
+# a) Describing the dataset
+description = data.describe()
+print("Dataset Description:")
+print(description)
+# b) Shape of the dataset
+shape = data.shape
+print("\nShape of the Dataset:")
+print(shape)
+# c) Display first 3 rows from the dataset
+first_three_rows = data.head(3)
+print("\nFirst 3 Rows of the Dataset:")
+print(first_three_rows)
