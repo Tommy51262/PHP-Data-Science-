@@ -1,0 +1,118 @@
+Q.1) Write a PHP script for the following: Design a form to accept two numbers from the user. Give options to choose the arithmetic operation (use radio buttons). Display the result on the next form. (Use the concept of function and default parameters. Use ‘include’ construct or require statement)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Operations</title>
+</head>
+<body>
+    <h2>Arithmetic Operations Form</h2>
+    <form method="post" action="result.php">
+        <label for="number1">First Number:</label><br>
+        <input type="number" id="number1" name="number1" required><br><br>
+        <label for="number2">Second Number:</label><br>
+        <input type="number" id="number2" name="number2" required><br><br>
+        <label>Choose an operation:</label><br>
+        <input type="radio" id="add" name="operation" value="add" checked>
+        <label for="add">Add</label><br>
+        <input type="radio" id="subtract" name="operation" value="subtract">
+        <label for="subtract">Subtract</label><br>
+        <input type="radio" id="multiply" name="operation" value="multiply">
+        <label for="multiply">Multiply</label><br>
+        <input type="radio" id="divide" name="operation" value="divide">
+        <label for="divide">Divide</label><br><br>
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
+Create the Result Page (result.php)
+<?php
+// Include the function definitions
+include 'functions.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $num1 = floatval($_POST['number1']);
+    $num2 = floatval($_POST['number2']);
+    $operation = $_POST['operation'];
+    // Call the function to perform the operation
+    $result = calculate($num1, $num2, $operation);
+   
+    echo "<h2>Result:</h2>";
+    echo "<p>The result of the operation is: <strong>$result</strong></p>";
+}
+?>
+<a href="form.php">Go Back</a>
+ Create the Functions File (functions.php)
+<?php
+function calculate($a, $b, $operation = 'add') {
+    switch ($operation) {
+        case 'add':
+            return $a + $b;
+        case 'subtract':
+            return $a - $b;
+        case 'multiply':
+            return $a * $b;
+        case 'divide':
+            if ($b != 0) {
+                return $a / $b;
+            } else {
+                return "Error: Division by zero.";
+            }
+        default:
+            return "Invalid operation.";
+    }
+}
+?>
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options. [10]
+import numpy as np
+import matplotlib.pyplot as plt
+# Generate a random array of 50 integers between 0 and 100
+random_array = np.random.randint(0, 101, size=50)
+# Set up the figure and subplots
+fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+# Line Chart
+axs[0, 0].plot(random_array, color='blue', marker='o', linestyle='-', linewidth=2)
+axs[0, 0].set_title('Line Chart of Random Integers', fontsize=14)
+axs[0, 0].set_xlabel('Index', fontsize=12)
+axs[0, 0].set_ylabel('Value', fontsize=12)
+axs[0, 0].grid(True)
+# Scatter Plot
+axs[0, 1].scatter(range(50), random_array, color='red', s=50, alpha=0.7)
+axs[0, 1].set_title('Scatter Plot of Random Integers', fontsize=14)
+axs[0, 1].set_xlabel('Index', fontsize=12)
+axs[0, 1].set_ylabel('Value', fontsize=12)
+axs[0, 1].grid(True)
+# Histogram
+axs[1, 0].hist(random_array, bins=10, color='green', alpha=0.7, edgecolor='black')
+axs[1, 0].set_title('Histogram of Random Integers', fontsize=14)
+axs[1, 0].set_xlabel('Value', fontsize=12)
+axs[1, 0].set_ylabel('Frequency', fontsize=12)
+# Box Plot
+axs[1, 1].boxplot(random_array, vert=False, patch_artist=True, boxprops=dict(facecolor='cyan'))
+axs[1, 1].set_title('Box Plot of Random Integers', fontsize=14)
+axs[1, 1].set_xlabel('Value', fontsize=12)
+# Adjust layout
+plt.tight_layout()
+plt.show()
+Q.2 B) Write a Python program to create data frame containing column name, salary, department add 10 rows with some missing and duplicate values to the data frame. Also drop all null and empty values. Print the modified data frame.
+import pandas as pd
+import numpy as np
+# Create a DataFrame with sample data
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Hannah', 'Ivy', 'Jack'],
+    'Salary': [70000, 80000, np.nan, 50000, 60000, 80000, np.nan, 70000, 50000, 80000],
+    'Department': ['HR', 'IT', 'Finance', 'HR', 'IT', 'Finance', 'HR', 'IT', 'Finance', 'IT']
+}
+# Create DataFrame
+df = pd.DataFrame(data)
+# Add duplicate values
+df = df.append(df.iloc[0])  # Duplicate Alice
+df = df.append(df.iloc[2])  # Duplicate Charlie
+# Print original DataFrame
+print("Original DataFrame:")
+print(df)
+# Drop all null and duplicate values
+df_modified = df.dropna().drop_duplicates()
+# Print modified DataFrame
+print("\nModified DataFrame:")
+print(df_modified)
