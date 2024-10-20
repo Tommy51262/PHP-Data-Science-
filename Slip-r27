@@ -1,0 +1,82 @@
+Q.1) Write a PHP program to read two file names from user and copy the content of first file into second file. 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy File Content</title>
+</head>
+<body>
+
+<h2>Copy Content from One File to Another</h2>
+
+<form method="POST" action="">
+    <label for="source_file">Enter Source File Name:</label><br>
+    <input type="text" name="source_file" required><br><br>
+    
+    <label for="destination_file">Enter Destination File Name:</label><br>
+    <input type="text" name="destination_file" required><br><br>
+    
+    <input type="submit" value="Copy Content">
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $source_file = $_POST['source_file'];
+    $destination_file = $_POST['destination_file'];
+
+    // Check if source file exists
+    if (!file_exists($source_file)) {
+        echo "<p style='color:red;'>Source file does not exist.</p>";
+    } else {
+        // Copy the content
+        if (copy($source_file, $destination_file)) {
+            echo "<p style='color:green;'>Content copied successfully from '$source_file' to '$destination_file'.</p>";
+        } else {
+            echo "<p style='color:red;'>Failed to copy content.</p>";
+        }
+    }
+}
+?>
+
+</body>
+</html>
+
+Q.2) Create a dataset data.csv having two categorical column (the country column, and the purchased column). [15] a. Apply OneHot coding on Country column. b. Apply Label encoding on purchased column 
+CSV file save  named  data.csv
+country,purchased
+USA,Yes
+Canada,No
+USA,No
+Mexico,Yes
+Canada,Yes
+USA,Yes
+Mexico,No
+Canada,Yes
+=-------
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+# Load the dataset
+data = pd.read_csv('data.csv')
+
+# Display the original dataset
+print("Original Dataset:")
+print(data)
+
+# Apply One-Hot Encoding to the 'country' column
+one_hot_encoder = OneHotEncoder(sparse=False)
+country_encoded = one_hot_encoder.fit_transform(data[['country']])
+country_df = pd.DataFrame(country_encoded, columns=one_hot_encoder.get_feature_names_out(['country']))
+
+# Combine the One-Hot Encoded columns with the original dataframe
+data_encoded = pd.concat([data, country_df], axis=1).drop('country', axis=1)
+
+# Apply Label Encoding to the 'purchased' column
+label_encoder = LabelEncoder()
+data_encoded['purchased'] = label_encoder.fit_transform(data_encoded['purchased'])
+
+# Display the transformed dataset
+print("\nTransformed Dataset:")
+print(data_encoded)
+
