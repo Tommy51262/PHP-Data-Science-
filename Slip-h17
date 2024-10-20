@@ -1,0 +1,86 @@
+Q.1) Write a PHP script to sort the following associative array : array(“Sagar"=>"31","Vicky"=>"41","Leena"=>"39","Ramesh"=>"40") in a) ascending order sort by Value b) ascending order sort by Key c) descending order sorting by Value d) descending order sorting by Key
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Associative Array</title>
+</head>
+<body>
+<h2>Sorting Associative Array</h2>
+<?php
+// Given associative array
+$array = array("Sagar" => "31", "Vicky" => "41", "Leena" => "39", "Ramesh" => "40");
+// a) Ascending order sort by Value
+asort($array);
+echo "<h3>Ascending Order Sort by Value:</h3>";
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+// Reset the array to original
+$array = array("Sagar" => "31", "Vicky" => "41", "Leena" => "39", "Ramesh" => "40");
+// b) Ascending order sort by Key
+ksort($array);
+echo "<h3>Ascending Order Sort by Key:</h3>";
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+// Reset the array to original
+$array = array("Sagar" => "31", "Vicky" => "41", "Leena" => "39", "Ramesh" => "40");
+// c) Descending order sort by Value
+arsort($array);
+echo "<h3>Descending Order Sort by Value:</h3>";
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+// Reset the array to original
+$array = array("Sagar" => "31", "Vicky" => "41", "Leena" => "39", "Ramesh" => "40");
+// d) Descending order sort by Key
+krsort($array);
+echo "<h3>Descending Order Sort by Key:</h3>";
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+?>
+</body>
+</html>
+Q.2 A) Write a Python program to draw scatter plots to compare two features of the iris dataset [10]
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+import pandas as pd
+# Load the iris dataset
+iris = load_iris()
+iris_df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+# Add species column to the DataFrame
+iris_df['species'] = pd.Categorical.from_codes(iris.target, iris.target_names)
+# Set the size of the plot
+plt.figure(figsize=(10, 6))
+# Create scatter plots for two features
+sns.scatterplot(data=iris_df, x='sepal length (cm)', y='sepal width (cm)', hue='species', style='species', s=100)
+# Add title and labels
+plt.title('Scatter Plot of Sepal Length vs Sepal Width')
+plt.xlabel('Sepal Length (cm)')
+plt.ylabel('Sepal Width (cm)')
+plt.legend(title='Species')
+plt.grid()
+# Show the plot
+plt.show()
+Q.2 B) Write a Python program to create a data frame containing columns name, age , salary, department . Add 10 rows to the data frame. View the data frame. [5]
+import pandas as pd
+# Create a DataFrame with columns: name, age, salary, department
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva',
+             'Frank', 'Grace', 'Hannah', 'Ivy', 'Jack'],
+    'age': [28, 34, 29, 42, 27,
+            35, 30, 31, 29, 26],
+    'salary': [70000, 80000, 75000, 60000, 65000,
+               72000, 85000, 90000, 50000, 48000],
+    'department': ['HR', 'Finance', 'IT', 'Marketing', 'IT',
+                   'HR', 'Finance', 'Marketing', 'IT', 'HR']
+}
+# Create the DataFrame
+df = pd.DataFrame(data)
+# Display the DataFrame
+print("Employee DataFrame:")
+print(df)
