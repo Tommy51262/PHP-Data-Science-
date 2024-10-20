@@ -1,0 +1,57 @@
+Q.1) Write a PHP script to create a chess board using CSS on table cells.
+<?php
+// Set the size of the chessboard
+$size = 8; // 8x8 chessboard
+// Start the table
+echo '<table style="border-collapse: collapse; width: 400px; height: 400px;">';
+// Loop through the rows
+for ($row = 0; $row < $size; $row++) {
+    echo '<tr>'; // Start a new row
+    // Loop through the columns
+    for ($col = 0; $col < $size; $col++) {
+        // Check if the cell should be black or white
+        $isBlack = ($row + $col) % 2 == 1;
+        $color = $isBlack ? 'black' : 'white';
+       
+        // Output the table cell with inline styles
+        echo '<td style="width: 50px; height: 50px; background-color: ' . $color . '; border: 1px solid black;"></td>';
+    }
+    echo '</tr>'; // End the row
+}
+echo '</table>'; // End the table
+?>
+Q.2 A) Write a Python program to create a graph to find relationship between the petal length and petal width.(Use iris.csv dataset)
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+# Load the Iris dataset
+# Make sure to have 'iris.csv' in the same directory as this script
+df = pd.read_csv('iris.csv')
+# Display the first few rows of the dataset (optional)
+print(df.head())
+# Create a scatter plot to show the relationship between petal length and petal width
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='petal_length', y='petal_width', hue='species', palette='Set1')
+# Add titles and labels
+plt.title('Relationship between Petal Length and Petal Width')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.legend(title='Species')
+plt.grid(True)
+# Show the plot
+plt.show()
+Q.2 B) Write a Python program to find the maximum and minimum value of a given flattened array.
+import numpy as np
+# Example of a 2D array
+array_2d = np.array([[3, 1, 4],
+                     [1, 5, 9],
+                     [2, 6, 5]])
+# Flatten the array
+flattened_array = array_2d.flatten()
+# Find maximum and minimum values
+max_value = np.max(flattened_array)
+min_value = np.min(flattened_array)
+# Output the results
+print("Flattened Array:", flattened_array)
+print("Maximum Value:", max_value)
+print("Minimum Value:", min_value)
