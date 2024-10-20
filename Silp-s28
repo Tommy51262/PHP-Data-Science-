@@ -1,0 +1,100 @@
+Q.1) Write a program to read a flat file “student.dat”, calculate the percentage and display the data from file in tabular format.(Student.dat file contains rollno, name, OS, WT, DS, Python, Java, CN ) 
+
+Save as  file “student.dat”
+
+1,John Doe,85,78,90,88,76,80
+2,Jane Smith,70,65,80,75,82,90
+3,Emily Davis,92,88,95,85,90,93
+4,Michael Brown,60,55,65,70,75,80
+
+—-------------------------------------
+Student_percentage.py
+
+import pandas as pd
+
+# Function to calculate percentage
+def calculate_percentage(marks):
+    return sum(marks) / len(marks)
+
+# Read the student data from the flat file
+with open('student.dat', 'r') as file:
+    data = []
+    for line in file:
+        # Split the line into components
+        components = line.strip().split(',')
+        rollno = components[0]
+        name = components[1]
+        # Convert marks to integers
+        marks = list(map(int, components[2:]))
+        # Calculate percentage
+        percentage = calculate_percentage(marks)
+        # Append to data list
+        data.append([rollno, name] + marks + [percentage])
+
+# Create a DataFrame for better display
+columns = ['Roll No', 'Name', 'OS', 'WT', 'DS', 'Python', 'Java', 'CN', 'Percentage']
+df = pd.DataFrame(data, columns=columns)
+
+# Display the data in tabular format
+print(df.to_string(index=False))
+
+Q.2) Write a Python program [15] 1. To create a dataframe containing columns name, age and percentage. Add 10 rows to the dataframe. View the dataframe. 2. To print the shape, number of rows-columns, data types, feature names and the description of the data. 3. To view basic statistical details of the data. 4. To Add 5 rows with duplicate values and missing values. Add a column ‘remarks’ with empty values. Display the data.  
+
+Dataframe_example.py
+
+import pandas as pd
+import numpy as np
+
+# Step 1: Create a DataFrame
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva', 
+             'Frank', 'Grace', 'Hannah', 'Ivy', 'Jack'],
+    'age': [23, 30, 22, 25, 29, 
+            28, 24, 27, 21, 26],
+    'percentage': [85.5, 90.0, 78.5, 88.0, 92.5, 
+                   75.0, 80.0, 82.5, 89.0, 91.0]
+}
+
+df = pd.DataFrame(data)
+
+# View the DataFrame
+print("DataFrame:")
+print(df)
+
+# Step 2: Print DataFrame properties
+print("\nDataFrame Properties:")
+print("Shape:", df.shape)
+print("Number of Rows:", df.shape[0])
+print("Number of Columns:", df.shape[1])
+print("Data Types:")
+print(df.dtypes)
+print("Feature Names:", df.columns.tolist())
+print("Description:")
+print(df.describe())
+
+# Step 3: Basic statistical details
+print("\nBasic Statistical Details:")
+print(df.describe())
+
+# Step 4: Add rows with duplicate and missing values
+new_rows = [
+    ['Alice', 23, 85.5],  # Duplicate
+    ['Bob', 30, 90.0],    # Duplicate
+    ['Charlie', np.nan, 78.5],  # Missing age
+    ['David', 25, np.nan],  # Missing percentage
+    ['Eva', 29, 92.5]       # Original
+]
+
+# Create a DataFrame for new rows
+duplicates_df = pd.DataFrame(new_rows, columns=['name', 'age', 'percentage'])
+
+# Append the new rows to the original DataFrame
+df = pd.concat([df, duplicates_df], ignore_index=True)
+
+# Add a 'remarks' column with empty values
+df['remarks'] = ''
+
+# Display the updated DataFrame
+print("\nUpdated DataFrame with Duplicates and Missing Values:")
+print(df)
+
