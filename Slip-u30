@@ -1,0 +1,160 @@
+Q.1) Consider the following entities and their relationships [15] Student (Stud_id,name,class) Competition (c_no,c_name,type) Relationship between student and competition is many-many with attribute rank and year. Create a RDB in 3NF for the above and solve the following. Using above database write a script in PHP to accept a competition name from user and display information of student who has secured 1st rank in that competition
+
+CREATE TABLE Student (
+    Stud_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    class VARCHAR(50)
+);
+
+CREATE TABLE Competition (
+    c_no INT PRIMARY KEY,
+    c_name VARCHAR(100),
+    type VARCHAR(50)
+);
+
+CREATE TABLE Student_Competition (
+    Stud_id INT,
+    c_no INT,
+    rank INT,
+    year INT,
+    PRIMARY KEY (Stud_id, c_no),
+    FOREIGN KEY (Stud_id) REFERENCES Student(Stud_id),
+    FOREIGN KEY (c_no) REFERENCES Competition(c_no)
+);
+—---------------------
+<?php
+// Database connection settings
+$host = 'localhost'; // Database host
+$dbname = 'your_database'; // Database name
+$username = 'your_username'; // Database username
+$password = 'your_password'; // Database password
+
+try {
+    // Create a new PDO instance
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $competitionName = $_POST['competition_name'];
+
+        // Prepare SQL query to get student info with 1st rank
+        $sql = "SELECT s.Stud_id, s.name, s.class 
+                FROM Student s
+                JOIN Student_Competition sc ON s.Stud_id = sc.Stud_id
+                JOIN Competition c ON sc.c_no = c.c_no
+                WHERE c.c_name = :competitionName AND sc.rank = 1";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':competitionName', $competitionName);
+        $stmt->execute();
+
+        // Fetch results
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Display the results
+        if (count($results) > 0) {
+            echo "<h2>Students who secured 1st rank in '$competitionName':</h2>";
+            echo "<table border='1'>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                    </tr>";
+            foreach ($results as $row) {
+                echo "<tr>
+                        <td>{$row['Stud_id']}</td>
+                        <td>{$row['name']}</td>
+                        <td>{$row['class']}</td>
+                      </tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>No students secured 1st rank in '$competitionName'.</p>";
+        }
+    }
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition Results</title>
+</head>
+<body>
+
+<h2>Find 1st Rank Student</h2>
+<form method="POST" action="">
+    <label for="competition_name">Enter Competition Name:</label><br>
+    <input type="text" name="competition_name" required><br><br>
+    <input type="submit" value="Search">
+</form>
+
+</body>
+</html>
+
+Q.2) Write python program to [15] a. Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options. b. Create two lists, one representing subject names and the other representing marks obtained in those subjects. Display the data in bar chart.  
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Part a: Generate a random array of 50 integers and display using different plots
+
+# Generate a random array of 50 integers between 1 and 100
+random_array = np.random.randint(1, 101, size=50)
+
+# Set up the figure and subplots
+fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+
+# Line Chart
+axs[0, 0].plot(random_array, color='blue', marker='o', linestyle='-', linewidth=2)
+axs[0, 0].set_title('Line Chart of Random Integers')
+axs[0, 0].set_xlabel('Index')
+axs[0, 0].set_ylabel('Value')
+axs[0, 0].grid()
+
+# Scatter Plot
+axs[0, 1].scatter(range(len(random_array)), random_array, color='red')
+axs[0, 1].set_title('Scatter Plot of Random Integers')
+axs[0, 1].set_xlabel('Index')
+axs[0, 1].set_ylabel('Value')
+axs[0, 1].grid()
+
+# Histogram
+axs[1, 0].hist(random_array, bins=10, color='green', edgecolor='black')
+axs[1, 0].set_title('Histogram of Random Integers')
+axs[1, 0].set_xlabel('Value')
+axs[1, 0].set_ylabel('Frequency')
+axs[1, 0].grid()
+
+# Box Plot
+axs[1, 1].boxplot(random_array, patch_artist=True, boxprops=dict(facecolor='lightblue'))
+axs[1, 1].set_title('Box Plot of Random Integers')
+axs[1, 1].set_ylabel('Value')
+
+# Adjust layout
+plt.tight_layout()
+plt.show()
+
+# Part b: Create two lists for subjects and marks, then display in a bar chart
+
+# Define subject names and corresponding marks
+subjects = ['Math', 'Science', 'English', 'History', 'Art']
+marks = [85, 90, 78, 88, 92]
+
+# Create a bar chart
+plt.figure(figsize=(8, 5))
+plt.bar(subjects, marks, color='purple')
+plt.title('Marks Obtained in Subjects')
+plt.xlabel('Subjects')
+plt.ylabel('Marks')
+plt.ylim(0, 100)
+plt.grid(axis='y')
+
+# Show the bar chart
+plt.show()
+
