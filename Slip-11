@@ -1,0 +1,67 @@
+Q.1) Create a button with different style (Secondary, Primary, Success, Error, Info, Warning, Danger) using BootStrap. 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Button Styles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Bootstrap Button Styles</h2>
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-danger">Error</button>
+            <button type="button" class="btn btn-info">Info</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-dark">Danger</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+Q.2 A) Write a Python program to create a Pie plot to get the frequency of the three species of the Iris data (Use iris.csv) [10]
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the Iris dataset
+file_path = 'iris.csv'  # Adjust this path as needed
+iris_data = pd.read_csv(file_path)
+
+# Count the frequency of each species
+species_counts = iris_data['species'].value_counts()
+
+# Create a pie plot
+plt.figure(figsize=(8, 8))
+plt.pie(species_counts, labels=species_counts.index, autopct='%1.1f%%', startangle=140)
+plt.title('Frequency of Iris Species')
+plt.axis('equal')  # Equal aspect ratio ensures that pie chart is circular.
+plt.show()
+
+
+
+ B) Write a Python program to view basic statistical details of the data.(Use wineequality-red.csv)
+
+import pandas as pd
+
+# Load the Wine Quality dataset
+file_path = 'winequality-red.csv'  # Adjust this path as needed
+wine_data = pd.read_csv(file_path, sep=';')  # Note the separator is a semicolon
+
+# View basic statistical details
+statistical_details = wine_data.describe()
+print("Basic Statistical Details of the Wine Quality Dataset:")
+print(statistical_details)
+
+ 
