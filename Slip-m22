@@ -1,0 +1,112 @@
+Q.1) Write a menu driven program to perform the following queue related operations a) Insert an element in queue b) Delete an element from queue c) Display the contents of queue 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Operations</title>
+</head>
+<body>
+
+<h2>Queue Operations Menu</h2>
+
+<form method="POST" action="">
+    <h3>Select an operation:</h3>
+    <input type="radio" name="operation" value="insert" checked> Insert Element<br>
+    <input type="radio" name="operation" value="delete"> Delete Element<br>
+    <input type="radio" name="operation" value="display"> Display Queue<br><br>
+
+    <label for="element">Element (for Insert/Delete):</label><br>
+    <input type="text" name="element"><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<?php
+session_start();
+
+// Initialize the queue in the session
+if (!isset($_SESSION['queue'])) {
+    $_SESSION['queue'] = [];
+}
+
+// Process the submitted form
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $operation = $_POST['operation'];
+    $element = $_POST['element'];
+
+    switch ($operation) {
+        case 'insert':
+            // Insert element into the queue
+            if (!empty($element)) {
+                array_push($_SESSION['queue'], $element);
+                echo "<p>Element '$element' inserted into the queue.</p>";
+            } else {
+                echo "<p>Please enter a valid element to insert.</p>";
+            }
+            break;
+
+        case 'delete':
+            // Delete element from the queue (FIFO)
+            if (!empty($_SESSION['queue'])) {
+                $removedElement = array_shift($_SESSION['queue']);
+                echo "<p>Element '$removedElement' deleted from the queue.</p>";
+            } else {
+                echo "<p>The queue is empty. No element to delete.</p>";
+            }
+            break;
+
+        case 'display':
+            // Display the contents of the queue
+            if (!empty($_SESSION['queue'])) {
+                echo "<p>Current Queue: " . implode(', ', $_SESSION['queue']) . "</p>";
+            } else {
+                echo "<p>The queue is currently empty.</p>";
+            }
+            break;
+    }
+}
+?>
+
+</body>
+</html>
+
+Q.2) Dataset Name: winequality-red.csv [15] Write a program in python to perform following tasks a. Rescaling: Normalised the dataset using MinMaxScaler class b. Standardizing Data (transform them into a standard Gaussian distribution with a mean of 0 and a standard deviation of 1) c. Normalizing Data ( rescale each observation to a length of 1 (a unit norm). For this, use the Normalizer class.)  
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, Normalizer
+
+# Load the dataset
+df = pd.read_csv('winequality-red.csv')
+
+# Display the first few rows of the dataset
+print("Original Dataset:")
+print(df.head())
+
+# a. Rescaling: Normalize the dataset using MinMaxScaler
+minmax_scaler = MinMaxScaler()
+normalized_data = minmax_scaler.fit_transform(df)
+
+# Convert normalized data back to DataFrame for better readability
+normalized_df = pd.DataFrame(normalized_data, columns=df.columns)
+print("\nNormalized Dataset (Min-Max Scaling):")
+print(normalized_df.head())
+
+# b. Standardizing Data
+standard_scaler = StandardScaler()
+standardized_data = standard_scaler.fit_transform(df)
+
+# Convert standardized data back to DataFrame
+standardized_df = pd.DataFrame(standardized_data, columns=df.columns)
+print("\nStandardized Dataset (Mean = 0, Std = 1):")
+print(standardized_df.head())
+
+# c. Normalizing Data
+normalizer = Normalizer()
+normalized_length_data = normalizer.fit_transform(df)
+
+# Convert normalized length data back to DataFrame
+normalized_length_df = pd.DataFrame(normalized_length_data, columns=df.columns)
+print("\nNormalized Dataset (Unit Norm):")
+print(normalized_length_df.head())
+
+
