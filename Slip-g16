@@ -1,0 +1,115 @@
+Q.1) Write a PHP script for the following: Design a form to accept the marks of 5 different subjects of a student, having serial number, subject name & marks out of 100. Display the result in the tabular format which will have total, percentage and grade. Use only 3 text boxes.(Use array of form parameters)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Input Form</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>Student Marks Input</h2>
+<form method="POST" action="">
+    <label for="subjects">Enter Subject Names (comma-separated):</label><br>
+    <input type="text" name="subjects" required><br><br>
+   
+    <label for="marks">Enter Marks (comma-separated):</label><br>
+    <input type="text" name="marks" required><br><br>
+   
+    <input type="submit" value="Submit">
+</form>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get subjects and marks from form input
+    $subjects = explode(',', $_POST['subjects']);
+    $marks = explode(',', $_POST['marks']);
+   
+    // Trim whitespace and validate input
+    $subjects = array_map('trim', $subjects);
+    $marks = array_map('trim', $marks);
+   
+    // Calculate total and percentage
+    $totalMarks = array_sum($marks);
+    $percentage = $totalMarks / count($marks);
+   
+    // Determine grade
+    if ($percentage >= 90) {
+        $grade = 'A+';
+    } elseif ($percentage >= 80) {
+        $grade = 'A';
+    } elseif ($percentage >= 70) {
+        $grade = 'B';
+    } elseif ($percentage >= 60) {
+        $grade = 'C';
+    } elseif ($percentage >= 50) {
+        $grade = 'D';
+    } else {
+        $grade = 'F';
+    }
+    // Display the results in a table
+    echo '<h3>Results</h3>';
+    echo '<table>';
+    echo '<tr><th>Subject</th><th>Marks</th></tr>';
+   
+    foreach ($subjects as $index => $subject) {
+        echo '<tr><td>' . htmlspecialchars($subject) . '</td><td>' . htmlspecialchars($marks[$index]) . '</td></tr>';
+    }
+    echo '<tr><td><strong>Total</strong></td><td><strong>' . $totalMarks . '</strong></td></tr>';
+    echo '<tr><td><strong>Percentage</strong></td><td><strong>' . number_format($percentage, 2) . '%</strong></td></tr>';
+    echo '<tr><td><strong>Grade</strong></td><td><strong>' . $grade . '</strong></td></tr>';
+    echo '</table>';
+}
+?>
+</body>
+</html>
+Q.2 A) Write a python program to create two lists, one representing subject names and the other representing marks obtained in those subjects. Display the data in a pie chart and bar chart. [10]
+import matplotlib.pyplot as plt
+# Subject names and corresponding marks
+subjects = ['Math', 'English', 'Science', 'History', 'Art']
+marks = [85, 78, 92, 67, 88]
+# Pie Chart
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.pie(marks, labels=subjects, autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors)
+plt.title('Marks Distribution in Subjects')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+# Bar Chart
+plt.subplot(1, 2, 2)
+plt.bar(subjects, marks, color='skyblue')
+plt.title('Marks in Each Subject')
+plt.xlabel('Subjects')
+plt.ylabel('Marks')
+plt.ylim(0, 100)
+plt.tight_layout()
+plt.show()
+ Q.2 B) Write a python program to create a data frame for students’ information such as name, graduation percentage and age. Display average age of students, average of graduation percentage.
+import pandas as pd
+# Create a DataFrame for student information
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],
+    'Graduation Percentage': [85.5, 78.0, 92.5, 67.0, 88.0],
+    'Age': [21, 22, 23, 20, 22]
+}
+df = pd.DataFrame(data)
+# Display the DataFrame
+print("Student Information:")
+print(df)
+# Calculate and display average age and graduation percentage
+average_age = df['Age'].mean()
+average_percentage = df['Graduation Percentage'].mean()
+print(f"\nAverage Age of Students: {average_age:.2f}")
+print(f"Average Graduation Percentage: {average_percentage:.2f}%")
