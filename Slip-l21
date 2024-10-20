@@ -1,0 +1,68 @@
+Q.1) Create an array of 15 high temperatures, approximating the weather for a spring month, then find the average high temp, the five warmest high temps Display the result on the browser. [15] 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Temperatures</title>
+</head>
+<body>
+
+<h2>High Temperatures for a Spring Month</h2>
+
+<?php
+// Step 1: Create an array of 15 high temperatures
+$highTemperatures = [68, 72, 75, 78, 80, 85, 90, 88, 84, 78, 76, 71, 69, 73, 77];
+
+// Step 2: Calculate the average high temperature
+$averageTemp = array_sum($highTemperatures) / count($highTemperatures);
+
+// Step 3: Find the five warmest high temperatures
+sort($highTemperatures);
+$warmestTemps = array_slice($highTemperatures, -5);
+
+// Step 4: Display the results
+echo "<p>Average High Temperature: " . round($averageTemp, 2) . " °F</p>";
+echo "<p>Five Warmest High Temperatures: " . implode(', ', $warmestTemps) . " °F</p>";
+?>
+
+</body>
+</html>
+
+Q.2 A) Import dataset “iris.csv”. Write a Python program to create a Bar plot to get the frequency of the three species of the Iris data. [10] 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the Iris dataset
+df = pd.read_csv('iris.csv')
+
+# Count the frequency of each species
+species_counts = df['species'].value_counts()
+
+# Create a bar plot
+plt.figure(figsize=(8, 5))
+species_counts.plot(kind='bar', color=['lightblue', 'lightgreen', 'salmon'])
+plt.title('Frequency of Iris Species')
+plt.xlabel('Species')
+plt.ylabel('Frequency')
+plt.xticks(rotation=0)
+plt.grid(axis='y')
+plt.show()
+
+Q.2 B)Write a Python program to create a histogram of the three species of the Iris data. [5]  
+# Create a histogram for each species
+plt.figure(figsize=(10, 6))
+
+# Plot histograms for sepal length, sepal width, petal length, and petal width by species
+for column in ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']:
+    plt.hist(df[df['species'] == 'setosa'][column], alpha=0.5, label='Setosa', bins=10)
+    plt.hist(df[df['species'] == 'versicolor'][column], alpha=0.5, label='Versicolor', bins=10)
+    plt.hist(df[df['species'] == 'virginica'][column], alpha=0.5, label='Virginica', bins=10)
+
+plt.title('Histogram of Iris Features by Species')
+plt.xlabel('Measurement')
+plt.ylabel('Frequency')
+plt.legend()
+plt.grid()
+plt.show()
+
