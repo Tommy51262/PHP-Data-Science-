@@ -1,0 +1,103 @@
+Q.1) Consider the following entities and their relationships [15] Event (eno , title , date ) Committee ( cno , name, head , from_time ,to_time , status) Event and Committee have many to many relationship. Write a php script to accept title of event and modify status committee as working.  
+
+Update_status.php
+
+<?php
+// Database connection settings
+$host = 'localhost'; // Database host
+$dbname = 'your_database'; // Database name
+$username = 'your_username'; // Database username
+$password = 'your_password'; // Database password
+
+try {
+    // Create a new PDO instance
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $eventTitle = $_POST['event_title'];
+
+        // Update the status of committees associated with the event title
+        $sql = "UPDATE Committee c 
+                JOIN Event_Committee ec ON c.cno = ec.cno 
+                JOIN Event e ON ec.eno = e.eno 
+                SET c.status = 'working' 
+                WHERE e.title = :eventTitle";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':eventTitle', $eventTitle);
+        
+        if ($stmt->execute()) {
+            echo "<p>Status of committees associated with the event '$eventTitle' has been updated to 'working'.</p>";
+        } else {
+            echo "<p>Error updating status.</p>";
+        }
+    }
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Committee Status</title>
+</head>
+<body>
+
+<h2>Update Committee Status</h2>
+<form method="POST" action="">
+    <label for="event_title">Enter Event Title:</label><br>
+    <input type="text" name="event_title" required><br><br>
+    <input type="submit" value="Update Status">
+</form>
+
+</body>
+</html>
+
+Q.2) Create a dataset data.csv having two categorical column (the country column, and the purchased column). [15] 1. Apply OneHot coding on Country column. 2. Apply Label encoding on purchased column
+
+CSV file named data.csv
+
+country,purchased
+USA,Yes
+Canada,No
+USA,No
+Mexico,Yes
+Canada,Yes
+USA,Yes
+Mexico,No
+Canada,Yes
+
+—----
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+# Step 1: Load the dataset
+data = pd.read_csv('data.csv')
+
+# Display the original dataset
+print("Original Dataset:")
+print(data)
+
+# Step 2: Apply One-Hot Encoding to the 'country' column
+one_hot_encoder = OneHotEncoder(sparse=False)
+country_encoded = one_hot_encoder.fit_transform(data[['country']])
+
+# Create a DataFrame for the One-Hot Encoded columns
+country_df = pd.DataFrame(country_encoded, columns=one_hot_encoder.get_feature_names_out(['country']))
+
+# Combine the One-Hot Encoded columns with the original DataFrame
+data_encoded = pd.concat([data.drop('country', axis=1), country_df], axis=1)
+
+# Step 3: Apply Label Encoding to the 'purchased' column
+label_encoder = LabelEncoder()
+data_encoded['purchased'] = label_encoder.fit_transform(data_encoded['purchased'])
+
+# Display the transformed dataset
+print("\nTransformed Dataset:")
+print(data_encoded)
+
