@@ -1,0 +1,106 @@
+Q.1) Write a menu driven program to perform the following operations on associative arrays: a) Split an array into chunks b) Sort the array by values without changing the keys. c) Filter the even elements from an array.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associative Array Operations</title>
+</head>
+<body>
+<h2>Menu Driven Program for Associative Array Operations</h2>
+<form method="POST" action="">
+    <h3>Select an operation:</h3>
+    <input type="radio" name="operation" value="chunk" checked> Split an array into chunks<br>
+    <input type="radio" name="operation" value="sort"> Sort the array by values<br>
+    <input type="radio" name="operation" value="filter"> Filter even elements<br><br>
+    <label for="inputArray">Enter an associative array (e.g., key1:value1,key2:value2):</label><br>
+    <input type="text" name="inputArray" required><br><br>
+    <div id="chunkFields">
+        <label for="chunkSize">Chunk size:</label><br>
+        <input type="number" name="chunkSize" min="1" value="2"><br><br>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Process the input array
+    $inputArray = $_POST['inputArray'];
+    $array = array_map('trim', explode(',', $inputArray));
+    $associativeArray = [];
+   
+    foreach ($array as $item) {
+        list($key, $value) = explode(':', $item);
+        $associativeArray[trim($key)] = (int)trim($value);
+    }
+    $operation = $_POST['operation'];
+    switch ($operation) {
+        case 'chunk':
+            $chunkSize = (int)$_POST['chunkSize'];
+            $chunks = array_chunk($associativeArray, $chunkSize, true);
+            echo "<h3>Array Split into Chunks:</h3>";
+            foreach ($chunks as $chunk) {
+                echo "<pre>" . print_r($chunk, true) . "</pre>";
+            }
+            break;
+        case 'sort':
+            asort($associativeArray); // Sort by values while maintaining keys
+            echo "<h3>Array Sorted by Values:</h3>";
+            echo "<pre>" . print_r($associativeArray, true) . "</pre>";
+            break;
+        case 'filter':
+            $evenElements = array_filter($associativeArray, function($value) {
+                return $value % 2 === 0; // Filter even elements
+            });
+            echo "<h3>Even Elements in the Array:</h3>";
+            echo "<pre>" . print_r($evenElements, true) . "</pre>";
+            break;
+    }
+}
+?>
+</body>
+</html>
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options.
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Set the random seed for reproducibility
+np.random.seed(42)
+# Generate a random array of 50 integers between 1 and 100
+data = np.random.randint(1, 101, size=50)
+# Create a figure for the plots
+plt.figure(figsize=(15, 10))
+# Line Chart
+plt.subplot(2, 2, 1)
+plt.plot(data, marker='o', linestyle='-', color='blue')
+plt.title('Line Chart of Random Integers')
+plt.xlabel('Index')
+plt.ylabel('Value')
+plt.grid()
+# Scatter Plot
+plt.subplot(2, 2, 2)
+plt.scatter(range(len(data)), data, color='green', alpha=0.6)
+plt.title('Scatter Plot of Random Integers')
+plt.xlabel('Index')
+plt.ylabel('Value')
+# Histogram
+plt.subplot(2, 2, 3)
+plt.hist(data, bins=10, color='orange', edgecolor='black', alpha=0.7)
+plt.title('Histogram of Random Integers')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+# Box Plot
+plt.subplot(2, 2, 4)
+sns.boxplot(data=data, color='lightblue')
+plt.title('Box Plot of Random Integers')
+plt.tight_layout()
+plt.show()
+[10] Q.2 B) Add two outliers to the above data and display the box plot.  
+# Add two outliers to the data
+outliers = [150, 200]
+data_with_outliers = np.append(data, outliers)
+# Create a box plot with outliers
+plt.figure(figsize=(8, 6))
+sns.boxplot(data=data_with_outliers, color='lightcoral')
+plt.title('Box Plot of Random Integers with Outliers')
+plt.xlabel('Value')
+plt.show()
