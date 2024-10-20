@@ -1,0 +1,527 @@
+Assignment 03
+Set A:
+Q: 1) Write a script to accept two integers(Use html form having 2
+textboxes). Write a PHP script to, a. Find mod of the two numbers. b. Find
+the power of first number raised to the second. c. Find the sum of first n
+numbers (considering first number as n) d. Find the factorial of second
+number. (Write separate function for each of the above operations.)
+SetA_1.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mathematical Operations</title>
+</head>
+<body>
+<h1>Choose Menu</h1>
+<form name="f" method="get" action="calculate.php">
+<div >
+<label for="t1">Enter 1st number:</label>
+<input type="text" id="t1" name="t1" required>
+</div>
+<div >
+<label for="t2">Enter 2nd number:</label>
+<input type="text" id="t2" name="t2" required>
+</div>
+<div >
+<label>Select Operation:</label><br>
+<input type="radio" id="op1" name="op" value="1" required>
+<label for="op1">Find the mod of 2 numbers</label><br>
+<input type="radio" id="op2" name="op" value="2">
+<label for="op2">Find the power of the first number raised to the
+second</label><br>
+<input type="radio" id="op3" name="op" value="3">
+
+<label for="op3">Find the sum of the first n numbers (considering
+first number as n)</label><br>
+<input type="radio" id="op4" name="op" value="4">
+<label for="op4">Find the factorial of the second number</label>
+</div>
+<div >
+<input type="submit" name="s" value="Submit">
+</div>
+</form>
+</body>
+</html>
+<?php
+function mod($n, $m)
+{
+$md = $n % $m;
+echo "Mod of " . $n . " and " . $m . " is " . $md;
+}
+function power($n, $m)
+{
+$p = 1;
+for ($i = 0; $i < $m; $i++) {
+$p = $p * $n;
+}
+echo $p;
+}
+function sum($n)
+{
+$s = 0;
+for ($i = 1; $i <= $n; $i++) {
+$s = $s + $i;
+}
+echo $s;
+}
+function fact($m)
+{
+$f = 1;
+while ($m > 0) {
+$f = $f * $m;
+$m--;
+}
+echo $f;
+}
+?>
+
+2
+
+calculate.php
+<?php
+include("SetA_1.php");
+$n = $_GET['t1'];
+$m = $_GET['t2'];
+$ch = $_GET['op'];
+switch ($ch) {
+case 1:
+mod($n, $m);
+break;
+case 2:
+power($n, $m);
+break;
+case 3:
+sum($n);
+break;
+case 4:
+fact($m);
+break;
+}
+?>
+
+3
+
+Q: 2) Write a PHP script for the following: Design a form
+to accept a string.
+a. Write a function to find the length of given string without using built in
+functions.
+b. Write a function to count the total number of vowels i.e. (a,e,i,o,u) ) from
+the string.
+c. Convert the given string to lowercase and then to Title case.
+d. Pad the given string with “*” from left and right both the sides.
+e. Remove the leading whitespaces from the given string. f. Find the reverse
+of given string.(use built-in functions) (Use radio buttons and the concept of
+function. Use ‘include’ construct or ‘require’ stmt.)
+
+SetA_2.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>String Operations</title>
+</head>
+<body>
+<h2>Enter a String</h2>
+<form action="string.php" method="post">
+<label for="inputString">String:</label>
+<input type="text" id="inputString" name="inputString"><br><br>
+<h3>Select an Operation:</h3>
+<input type="radio" id="length" name="operation" value="length">
+<label for="length">Find Length of the String</label><br>
+<input type="radio" id="vowelCount" name="operation" value="vowelCount">
+<label for="vowelCount">Count Total Number of Vowels</label><br>
+<input type="radio" id="toTitleCase" name="operation"
+value="toTitleCase">
+<label for="toTitleCase">Convert to Title Case</label><br>
+
+4
+
+<input type="radio" id="padString" name="operation" value="padString">
+<label for="padString">Pad String with "*"</label><br>
+<input type="radio" id="removeWhitespace" name="operation"
+value="removeWhitespace">
+<label for="removeWhitespace">Remove Leading Whitespaces</label><br>
+<input type="radio" id="reverseString" name="operation"
+value="reverseString">
+<label for="reverseString">Reverse the String</label><br><br>
+<input type="submit" value="Perform Operation">
+</form>
+</body>
+</html>
+
+string.php
+<?php
+// Function to find the length of a string without using built-in functions
+function stringLength($str) {
+$length = 0;
+while (isset($str[$length])) {
+$length++;
+}
+return $length;
+}
+// Function to count the total number of vowels in a string
+function countVowels($str) {
+$vowels = ['a', 'e', 'i', 'o', 'u'];
+$count = 0;
+$str = strtolower($str); // Convert the string to lowercase
+for ($i = 0; $i < stringLength($str); $i++) {
+if (in_array($str[$i], $vowels)) {
+$count++;
+}
+}
+return $count;
+}
+// Function to convert the given string to title case
+function convertToTitleCase($str) {
+$str = strtolower($str); // Convert to lowercase first
+$words = explode(' ', $str);
+
+5
+
+foreach ($words as &$word) {
+if (isset($word[0])) {
+$word[0] = strtoupper($word[0]);
+}
+}
+return implode(' ', $words);
+}
+// Function to pad the string with "*"
+function padString($str) {
+return "*" . $str . "*";
+}
+// Function to remove leading whitespaces from the string
+function removeLeadingWhitespace($str) {
+$i = 0;
+while (isset($str[$i]) && $str[$i] === ' ') {
+$i++;
+}
+return substr($str, $i);
+}
+// Include or require functions (assuming they are in a separate file)
+// include('functions.php');
+// require('functions.php');
+// Retrieve the input string and selected operation
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$inputString = $_POST['inputString'];
+$operation = $_POST['operation'];
+$result = "";
+// Perform the operation based on the selected radio button
+switch ($operation) {
+case 'length':
+$result = "Length of the string: " . stringLength($inputString);
+break;
+case 'vowelCount':
+$result = "Total number of vowels: " . countVowels($inputString);
+break;
+case 'toTitleCase':
+$result = "Title case: " . convertToTitleCase($inputString);
+break;
+case 'padString':
+$result = "Padded string: " . padString($inputString);
+break;
+
+6
+
+case 'removeWhitespace':
+$result = "String without leading whitespaces: '" .
+removeLeadingWhitespace($inputString) . "'";
+break;
+case 'reverseString':
+$result = "Reversed string: " . strrev($inputString);
+built-in function
+break;
+default:
+$result = "Please select an operation.";
+break;
+}
+
+// Using
+
+// Display the result
+echo "<h2>Result:</h2>";
+echo $result;
+}
+?>
+
+SET B
+Q. 1) :Write a PHP script for the following: Design a form to accept two
+strings from the user.
+a. Find whether the small string appears at the start of the large string.
+b. Find the position of the small string in the big string.
+c. Compare both the string for first n characters, also the comparison
+should not be case sensitive
+
+SetB_1.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>String Operations</title>
+</head>
+<body>
+<h2>Enter Two Strings</h2>
+<form method="post">
+<label for="largeString">Large String:</label>
+<input type="text" id="largeString" name="largeString" required><br><br>
+
+7
+
+<label for="smallString">Small String:</label>
+<input type="text" id="smallString" name="smallString" required><br><br>
+<label for="numChars">Number of Characters for Comparison (n):</label>
+<input type="number" id="numChars" name="numChars" min="1"
+required><br><br>
+<input type="submit" value="Perform Operations">
+</form>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Retrieve the input values from the form
+$largeString = $_POST['largeString'];
+$smallString = $_POST['smallString'];
+$numChars = intval(value: $_POST['numChars']);
+// Function to check if the small string appears at the start of the
+large string
+function startsWith($largeStr, $smallStr) {
+return substr(string: $largeStr, offset: 0, length:
+strlen($smallStr)) === $smallStr;
+}
+// Function to find the position of the small string in the large string
+function findPosition($largeStr, $smallStr) {
+$position = strpos($largeStr, $smallStr);
+return $position !== false ? $position : "Not found";
+}
+// Function to compare the first n characters of both strings (caseinsensitive)
+function compareFirstNChars($str1, $str2, $n) {
+$substr1 = substr(strtolower($str1), 0, $n);
+$substr2 = substr(strtolower($str2), 0, $n);
+return $substr1 === $substr2 ? "Yes" : "No";
+}
+// Perform the operations
+$startsWithResult = startsWith($largeString, $smallString) ? "Yes" :
+"No";
+$positionResult = findPosition($largeString, $smallString);
+$compareResult = compareFirstNChars($largeString, $smallString,
+$numChars);
+// Display the results
+
+8
+
+echo "<h2>Results:</h2>";
+echo "Does the small string appear at the start of the large string? " .
+$startsWithResult . "<br>";
+echo "Position of the small string in the large string: " .
+$positionResult . "<br>";
+echo "Are the first $numChars characters of both strings equal (caseinsensitive)? " . $compareResult . "<br>";
+}
+?>
+</body>
+</html>
+
+Q. 2) : Write a PHP script for the following: Design a form having a text
+box and a drop down list containing any 3 separators(e.g. #, |, %, @, !
+or comma) accept a strings from the user and also a separator.
+a. Splitthe string into separate words using the given separator.
+b. Replace all the occurrences of separator in the given string with
+some other separator.
+c. Find the last word in the given string(Use strrstr() function).
+SetB_2.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>String Separator Operations</title>
+</head>
+<body>
+<h2>String Separator Operations</h2>
+<form method="post">
+<label for="inputString">Enter String:</label>
+<input type="text" id="inputString" name="inputString" required><br><br>
+<label for="separator">Select Separator:</label>
+<select id="separator" name="separator" required>
+<option value="#">#</option>
+<option value="|">|</option>
+
+9
+
+<option value="%">%</option>
+<option value="@">@</option>
+<option value="!">!</option>
+<option value=",">,</option>
+</select><br><br>
+<label for="replaceWith">Replace Separator With:</label>
+<input type="text" id="replaceWith" name="replaceWith" required><br><br>
+<input type="submit" value="Perform Operations">
+</form>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Retrieve input values
+$inputString = $_POST['inputString'];
+$separator = $_POST['separator'];
+$replaceWith = $_POST['replaceWith'];
+// Function to split the string using the given separator
+function splitString($str, $sep) {
+return explode($sep, $str);
+}
+// Function to replace all occurrences of the separator with another
+separator
+function replaceSeparator($str, $oldSep, $newSep) {
+return str_replace($oldSep, $newSep, $str);
+}
+// Function to find the last word in the string
+function findLastWord($str, $sep) {
+$pos = strrpos($str, $sep); // Find the position of the last
+separator
+if ($pos !== false) {
+return substr($str, $pos + 1); // Extract the last word
+} else {
+return $str; // If no separator found, return the whole string
+}
+}
+// Perform the operations
+$words = splitString($inputString, $separator);
+$replacedString = replaceSeparator($inputString, $separator,
+$replaceWith);
+$lastWord = findLastWord($inputString, $separator);
+
+10
+
+// Display the results
+echo "<h2>Results:</h2>";
+echo "Words split by '$separator':<br>";
+echo "<ul>";
+foreach ($words as $word) {
+echo "<li>" . htmlspecialchars($word) . "</li>";
+}
+echo "</ul>";
+echo "String with '$separator' replaced by '$replaceWith': " .
+htmlspecialchars($replacedString) . "<br>";
+echo "Last word in the string: " . htmlspecialchars($lastWord) . "<br>";
+}
+?>
+</body>
+</html>
+
+Q. 3) : Write a PHP script having 3 textboxes. The first textbox should be
+for accepting name of the student, second for accepting name of
+college and third for accepting a proper greeting message. Write a
+function for accepting all the three parameters and generating a proper
+greeting message. If any of the parameters are not passed, generate
+the proper greeting message. (Use the concept of missing parameters)
+SetB_3.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Greeting Message Generator</title>
+<style>
+.container {
+width: 50%;
+margin: 0 auto;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 8px;
+background-color: #f9f9f9;
+font-family: Arial, sans-serif;
+
+11
+
+}
+.form-group {
+margin-bottom: 15px;
+}
+.form-group label {
+display: block;
+margin-bottom: 5px;
+}
+.form-group input[type="text"] {
+width: calc(100% - 22px);
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+.form-group input[type="submit"] {
+background-color: #4CAF50;
+color: white;
+border: none;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+border-radius: 4px;
+cursor: pointer;
+}
+.form-group input[type="submit"]:hover {
+background-color: #45a049;
+}
+.result {
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Greeting Message</h1>
+<form method="post" action="generate_greeting.php">
+<div class="form-group">
+<label for="student_name">Student Name:</label>
+<input type="text" id="student_name" name="student_name">
+</div>
+<div class="form-group">
+<label for="college_name">College Name:</label>
+<input type="text" id="college_name" name="college_name">
+
+12
+
+</div>
+<div class="form-group">
+<label for="greeting">Greeting Message:</label>
+<input type="text" id="greeting" name="greeting">
+</div>
+<div class="form-group">
+<input type="submit" value="Generate Greeting">
+</div>
+</form>
+</div>
+</body>
+</html>
+
+generate_greeting.php
+
+<?php
+// Function to generate a greeting message
+function generateGreeting($studentName = null, $collegeName = null, $greeting =
+null) {
+// Set default values if parameters are missing
+if (!$studentName) {
+$studentName = "Student";
+}
+if (!$collegeName) {
+$collegeName = "Your College";
+}
+if (!$greeting) {
+$greeting = "Hello and welcome!";
+}
+// Generate the greeting message
+return "$greeting, $studentName from $collegeName!";
+}
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$studentName = isset($_POST['student_name']) ? $_POST['student_name'] : null;
+$collegeName = isset($_POST['college_name']) ? $_POST['college_name'] : null;
+$greeting = isset($_POST['greeting']) ? $_POST['greeting'] : null;
+// Call the function to generate the greeting
+$message = generateGreeting($studentName, $collegeName, $greeting);
+
+13
+
+// Display the generated greeting message
+echo "<div class='container'>";
+echo "<h2>Generated Greeting Message:</h2>";
+echo "<p>" . htmlspecialchars($message) . "</p>";
+echo "</div>";
+}
+?>
+
+14
+
+

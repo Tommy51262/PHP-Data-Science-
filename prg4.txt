@@ -1,0 +1,67 @@
+12/25/22, 9:51 PM
+
+slip4
+
+A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box
+plot. Apply appropriate color, labels and styling options.
+In [1]:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+data=np.random.randint(1,100,50)
+data
+Out[1]:
+array([80, 31, 67, 78, 66, 46, 36, 90, 49, 13, 26, 86, 4, 45, 89, 71, 23,
+91, 99, 80, 7, 48, 50, 32, 89, 41, 74, 33, 96, 5, 90, 14, 76, 87,
+38, 29, 47, 99, 51, 24, 96, 50, 69, 38, 88, 1, 14, 26, 29, 23])
+In [2]:
+plt.plot(data)
+Out[2]:
+[<matplotlib.lines.Line2D at 0x76dc990fa0>]
+
+localhost:8888/nbconvert/html/tybcs/slip4.ipynb?download=false
+
+1/3
+
+12/25/22, 9:51 PM
+
+slip4
+
+In [3]:
+plt.scatter(data,data)
+Out[3]:
+<matplotlib.collections.PathCollection at 0x76dca30fd0>
+
+In [4]:
+plt.hist(data,bins = [0,20,40,60,80,100])
+plt.show()
+
+localhost:8888/nbconvert/html/tybcs/slip4.ipynb?download=false
+
+2/3
+
+12/25/22, 9:51 PM
+
+slip4
+
+In [5]:
+plt.boxplot(data)
+Out[5]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x76dcafff40>,
+<matplotlib.lines.Line2D at 0x76dcb102e0>],
+'caps': [<matplotlib.lines.Line2D at 0x76dcb10640>,
+<matplotlib.lines.Line2D at 0x76dcb109a0>],
+'boxes': [<matplotlib.lines.Line2D at 0x76dcaffbe0>],
+'medians': [<matplotlib.lines.Line2D at 0x76dcb10d00>],
+'fliers': [<matplotlib.lines.Line2D at 0x76dcb1d040>],
+'means': []}
+
+In [ ]:
+
+In [ ]:
+
+localhost:8888/nbconvert/html/tybcs/slip4.ipynb?download=false
+
+3/3
+
+

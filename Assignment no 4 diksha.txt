@@ -1,0 +1,48 @@
+Assignment No 4
+Name : Pathak Diksha Vilas
+Roll NO :58
+Batch 3
+Class :T.Y.Bsc(Computer Science)
+
+Write a Python program to create box plots to see how each
+feature i.e. Sepal Length, Sepal Width, Petal Length, Petal Width
+are distributed across the three species. (Use iris.csv dataset)
+import pandas as pd
+import seaborn as sns # used for creating statistical graphics.
+import matplotlib.pyplot as plt
+# Load the iris dataset
+df = pd.read_csv("iris.csv")
+features = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+for feature in features:
+sns.boxplot(x='species', y=feature, data=df)
+plt.title(f'{feature.capitalize()} Distribution by Species')
+plt.show()
+
+Slip 21,24 (A)
+Import dataset “iris.csv”. Write a Python program to create a Bar plot to get the frequency of the three species of the Iris data.
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv("iris.csv")
+species_counts = df['species'].value_counts()
+plt.figure(figsize=(8, 6))
+species_counts.plot(kind='bar', color=['lightblue', 'lightgreen', 'lightcoral'])
+
+plt.title('Frequency of Iris Species')
+plt.xlabel('Species')
+plt.ylabel('Frequency')
+
+plt.show()
+
+Slip 1,11 (A)
+Write a Python program to create a Pie plot to get the frequency of the three species of the Iris data (Use iris.csv)
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv("iris.csv")
+species_counts = df['species'].value_counts()
+plt.pie(species_counts, labels=species_counts.index, autopct='%1.1f%%')
+plt.title('Frequency of Iris Species')
+plt.show()
+
+Loading [MathJax]/jax/output/CommonHTML/fonts/TeX/fontdata.js
+
+

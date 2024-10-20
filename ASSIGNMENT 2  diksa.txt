@@ -1,0 +1,110 @@
+Assignment NO 2
+Name :Pathak Diksha Vilas
+RollNO:58
+Batch:3
+Class:TYBSC(COMP.SCI)
+
+Slip16(b)
+Q.2 B) Write a python program to create a data frame for students’ information such as name, graduation percentage and age. Display
+average age of students, average of graduation percentage
+import pandas as pd
+data={
+'Name':['Madhura','Sakshi','Samiksha','Akanksha'],
+'Graduation_Percentage':[85,82,78,66],
+'Age':[22,33,24,29]
+}
+students_df=pd.DataFrame(data)
+print("Students Information:\n")
+print(students_df)
+Students Information:
+
+0
+1
+2
+3
+
+Name
+Madhura
+Sakshi
+Samiksha
+Akanksha
+
+Graduation_Percentage
+85
+82
+78
+66
+
+Age
+22
+33
+24
+29
+
+average_age=students_df['Age'].mean()
+average_Graduation_Percentage=students_df['Graduation_Percentage'].mean()
+print(f"Average Age of Students:{average_age:.2f}")
+print(f"Average Graduation Percentage :{average_Graduation_Percentage:.2f}")
+Average Age of Students:27.00
+Average Graduation Percentage :77.75
+
+Slip 10(A)
+Q.2 A) Write a python program to Display column-wise mean, and median for SOCR​Height
+file_path='SOCR-HeightWeight.csv'
+data=pd.read_csv(file_path)
+print("first 5 rows DataFrame:")
+print(data.head())
+first 5 rows DataFrame:
+Index Height(Inches)
+0
+1
+65.78331
+1
+2
+71.51521
+2
+3
+69.39874
+3
+4
+68.21660
+4
+5
+67.78781
+
+Weight(Pounds)
+112.9925
+136.4873
+153.0269
+142.3354
+144.2971
+
+mean_values=data.mean()
+median_values=data.median()
+print("Column-wise Mean:")
+print(mean_values,"\n")
+Column-wise Mean:
+Index
+12500.500000
+Height(Inches)
+67.993114
+Weight(Pounds)
+127.079421
+dtype: float64
+
+print("Column-wise Median:")
+
+print("Column-wise Median:")
+print(median_values,"\n")
+Column-wise Median:
+Index
+12500.50000
+Height(Inches)
+67.99570
+Weight(Pounds)
+127.15775
+dtype: float64
+
+Loading [MathJax]/jax/output/CommonHTML/fonts/TeX/fontdata.js
+
+

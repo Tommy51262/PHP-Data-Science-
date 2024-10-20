@@ -1,0 +1,105 @@
+12/25/22, 9:52 PM
+
+slip 9
+
+A)Generate a random array of 50 integers and display them using a line chart, scatter plot. Apply appropriate
+color, labels and styling options.
+In [62]:
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+In [63]:
+# Generate Random integers
+data=np.random.randint(1,200,50)
+data
+Out[63]:
+array([ 76, 199, 53, 154, 115, 118, 167, 160, 23, 175,
+4, 32, 172,
+102, 21, 157, 112, 50, 172, 30, 58, 111, 21, 84, 63, 169,
+162, 26,
+7, 27, 79, 17, 67, 38, 119, 155, 129, 51, 178,
+1, 77, 91, 167, 87, 118, 173, 103,
+9, 70, 19])
+In [64]:
+plt.plot(data,c='green')
+Out[64]:
+[<matplotlib.lines.Line2D at 0xafdf632eb0>]
+
+localhost:8888/nbconvert/html/tybcs/slip 9.ipynb?download=false
+
+1/3
+
+12/25/22, 9:52 PM
+
+slip 9
+
+In [65]:
+#scatter plot
+x=data
+y=np.random.randint(1,100,50)
+plt.scatter(x,y,c='red',marker='*')
+Out[65]:
+<matplotlib.collections.PathCollection at 0xafdf692730>
+
+B) Create two lists, one representing subject names and the other representing marks obtained in those subjects.
+Display the data in a pie chart.
+In [66]:
+subject=['OS','Networking','PHP','Data Science','Python']
+marks=[80,90,89,95,80]
+plt.pie(marks,labels=subject,autopct='%1.1f%%')
+plt.show()
+
+C) Write a program in python to perform following task (Use winequality-red.csv ) [5] Import Dataset and do
+the followings: 1) Describing the dataset 2) Shape of the dataset 3) Display first 3 rows from dataset
+D) Add two outliers to the above data and display the box plot.
+
+localhost:8888/nbconvert/html/tybcs/slip 9.ipynb?download=false
+
+2/3
+
+12/25/22, 9:52 PM
+
+slip 9
+
+In [67]:
+data
+Out[67]:
+array([ 76, 199, 53, 154, 115, 118, 167, 160, 23, 175,
+4, 32, 172,
+102, 21, 157, 112, 50, 172, 30, 58, 111, 21, 84, 63, 169,
+162, 26,
+7, 27, 79, 17, 67, 38, 119, 155, 129, 51, 178,
+1, 77, 91, 167, 87, 118, 173, 103,
+9, 70, 19])
+In [70]:
+data=np.append(data,700)
+data=np.append(data,900)
+data
+Out[70]:
+array([ 76, 199, 53, 154, 115, 118, 167, 160, 23, 175,
+4, 32, 172,
+102, 21, 157, 112, 50, 172, 30, 58, 111, 21, 84, 63, 169,
+162, 26,
+7, 27, 79, 17, 67, 38, 119, 155, 129, 51, 178,
+1, 77, 91, 167, 87, 118, 173, 103,
+9, 70, 19, 700, 700,
+900])
+In [71]:
+plt.boxplot(data)
+Out[71]:
+{'whiskers': [<matplotlib.lines.Line2D at 0xafdf7a14c0>,
+<matplotlib.lines.Line2D at 0xafdf7a1820>],
+'caps': [<matplotlib.lines.Line2D at 0xafdf7a1b80>,
+<matplotlib.lines.Line2D at 0xafdf7a1ee0>],
+'boxes': [<matplotlib.lines.Line2D at 0xafdf7a1160>],
+'medians': [<matplotlib.lines.Line2D at 0xafdf7aa280>],
+'fliers': [<matplotlib.lines.Line2D at 0xafdf7aa580>],
+'means': []}
+
+In [ ]:
+
+localhost:8888/nbconvert/html/tybcs/slip 9.ipynb?download=false
+
+3/3
+
+
