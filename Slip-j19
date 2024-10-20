@@ -1,0 +1,136 @@
+Q.1)Write a PHP script to accept 2 strings from the user, the first string should be a sentence and second can be a word. a. Delete a small part from first string after accepting position and number of characters to remove. b. Insert the given small string in the given big string at specified position without removing any characters from the big string. c. Replace some characters/ words from given big string with the given small string at specified position
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Operations</title>
+</head>
+<body>
+<h2>String Operations</h2>
+<form method="POST" action="">
+    <label for="bigString">Enter a sentence:</label><br>
+    <textarea name="bigString" required></textarea><br><br>
+   
+    <label for="smallString">Enter a word:</label><br>
+    <input type="text" name="smallString" required><br><br>
+   
+    <h3>Choose an operation:</h3>
+    <input type="radio" name="operation" value="delete" checked> Delete a part<br>
+    <input type="radio" name="operation" value="insert"> Insert a word<br>
+    <input type="radio" name="operation" value="replace"> Replace a word<br><br>
+   
+    <div id="deleteFields" style="display: block;">
+        <label for="deletePosition">Position to delete from (0-indexed):</label><br>
+        <input type="number" name="deletePosition" min="0"><br><br>
+        <label for="deleteLength">Number of characters to remove:</label><br>
+        <input type="number" name="deleteLength" min="1"><br><br>
+    </div>
+   
+    <div id="insertFields" style="display: none;">
+        <label for="insertPosition">Position to insert at (0-indexed):</label><br>
+        <input type="number" name="insertPosition" min="0"><br><br>
+    </div>
+   
+    <div id="replaceFields" style="display: none;">
+        <label for="replacePosition">Position to replace at (0-indexed):</label><br>
+        <input type="number" name="replacePosition" min="0"><br><br>
+    </div>
+   
+    <input type="submit" value="Submit">
+</form>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $bigString = $_POST['bigString'];
+    $smallString = $_POST['smallString'];
+    $operation = $_POST['operation'];
+    switch ($operation) {
+        case 'delete':
+            $deletePosition = (int)$_POST['deletePosition'];
+            $deleteLength = (int)$_POST['deleteLength'];
+            $modifiedString = substr($bigString, 0, $deletePosition) .
+                              substr($bigString, $deletePosition + $deleteLength);
+            echo "<h3>Modified String after Deletion:</h3>";
+            echo "<p>$modifiedString</p>";
+            break;
+        case 'insert':
+            $insertPosition = (int)$_POST['insertPosition'];
+            $modifiedString = substr($bigString, 0, $insertPosition) .
+                              $smallString .
+                              substr($bigString, $insertPosition);
+            echo "<h3>Modified String after Insertion:</h3>";
+            echo "<p>$modifiedString</p>";
+            break;
+        case 'replace':
+            $replacePosition = (int)$_POST['replacePosition'];
+            $modifiedString = substr($bigString, 0, $replacePosition) .
+                              $smallString .
+                              substr($bigString, $replacePosition + strlen($smallString));
+            echo "<h3>Modified String after Replacement:</h3>";
+            echo "<p>$modifiedString</p>";
+            break;
+    }
+}
+?>
+<script>
+    const operationInputs = document.getElementsByName('operation');
+    const deleteFields = document.getElementById('deleteFields');
+    const insertFields = document.getElementById('insertFields');
+    const replaceFields = document.getElementById('replaceFields');
+    operationInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            if (input.value === 'delete') {
+                deleteFields.style.display = 'block';
+                insertFields.style.display = 'none';
+                replaceFields.style.display = 'none';
+            } else if (input.value === 'insert') {
+                deleteFields.style.display = 'none';
+                insertFields.style.display = 'block';
+                replaceFields.style.display = 'none';
+            } else if (input.value === 'replace') {
+                deleteFields.style.display = 'none';
+                insertFields.style.display = 'none';
+                replaceFields.style.display = 'block';
+            }
+        });
+    });
+</script>
+</body>
+</html>
+Q.2) Write a Python program [15] 1. To create a dataframe containing columns name, age and percentage. Add 10 rows to the dataframe. View the dataframe. 2. To print the shape, number of rows-columns, data types, feature names and the description of the data 3. To Add 5 rows with duplicate values and missing values. Add a column ‘remarks’ with empty values. Display the data.
+import pandas as pd
+import numpy as np
+# 1. Create a DataFrame with columns: name, age, and percentage
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva',
+             'Frank', 'Grace', 'Hannah', 'Ivy', 'Jack'],
+    'age': [23, 34, 29, 42, 27,
+            35, 30, 31, 29, 26],
+    'percentage': [85.5, 90.0, 78.5, 88.0, 95.0,
+                   80.0, 75.5, 88.5, 91.0, 84.0]
+}
+df = pd.DataFrame(data)
+# View the DataFrame
+print("Original DataFrame:")
+print(df)
+# 2. Print shape, number of rows-columns, data types, feature names, and description
+print("\nDataFrame Shape:", df.shape)  # shape: (rows, columns)
+print("Number of Rows:", df.shape[0])
+print("Number of Columns:", df.shape[1])
+print("Data Types:\n", df.dtypes)
+print("Feature Names:", df.columns.tolist())
+print("\nData Description:")
+print(df.describe())
+# 3. Add 5 rows with duplicate values and missing values
+duplicates = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie', None, 'Eva'],  # None for missing value
+    'age': [23, 34, 29, 35, None],  # None for missing value
+    'percentage': [85.5, 90.0, 78.5, 88.0, None]  # None for missing value
+})
+# Append duplicates to the original DataFrame
+df = df.append(duplicates, ignore_index=True)
+# Add a new column 'remarks' with empty values
+df['remarks'] = ''
+# Display the updated DataFrame
+print("\nUpdated DataFrame with Duplicates and Missing Values:")
+print(df)
