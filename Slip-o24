@@ -1,0 +1,74 @@
+Q.1) Write a PHP program to read two file names from user and append content of first file into second file. 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Append File Contents</title>
+</head>
+<body>
+
+<h2>Append File Contents</h2>
+
+<form method="POST" action="">
+    <label for="file1">Enter the name of the first file:</label><br>
+    <input type="text" name="file1" required><br><br>
+    
+    <label for="file2">Enter the name of the second file:</label><br>
+    <input type="text" name="file2" required><br><br>
+    
+    <input type="submit" value="Append Contents">
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $file1 = $_POST['file1'];
+    $file2 = $_POST['file2'];
+
+    // Check if the first file exists
+    if (file_exists($file1)) {
+        // Read content from the first file
+        $content = file_get_contents($file1);
+
+        // Append content to the second file
+        file_put_contents($file2, $content, FILE_APPEND);
+
+        echo "<p>Contents of '$file1' have been appended to '$file2'.</p>";
+    } else {
+        echo "<p>Error: The file '$file1' does not exist.</p>";
+    }
+}
+?>
+
+</body>
+</html>
+
+Q.2 A) Import dataset “iris.csv”. Write a Python program to create a Bar plot to get the frequency of the three species of the Iris data. [10] 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('iris.csv')
+
+# Display the first few rows of the dataset
+print("Iris Dataset:")
+print(df.head())
+
+# Q.2 A) Create a Bar plot to get the frequency of the three species of the Iris data
+plt.figure(figsize=(8, 5))
+sns.countplot(x='species', data=df, palette='viridis')
+plt.title('Frequency of Iris Species')
+plt.xlabel('Species')
+plt.ylabel('Frequency')
+plt.grid(axis='y')
+plt.show()
+Q.2 B) Write a Python program to create a histogram of the three species of the Iris data. [5] 
+# Q.2 B) Create a histogram of the three species of the Iris data
+plt.figure(figsize=(10, 6))
+sns.histplot(data=df, x='sepal_length', hue='species', multiple='stack', bins=15, palette='viridis')
+plt.title('Histogram of Sepal Length by Species')
+plt.xlabel('Sepal Length')
+plt.ylabel('Count')
+plt.grid(axis='y')
+plt.show()
