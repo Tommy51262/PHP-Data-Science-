@@ -1,0 +1,97 @@
+Q.1) Design a form to accept string from the user and perform the following operations a. To select first 5 words from the string b. Convert the given string to lowercase and then to Title case. c. Pad the given string with “*” from left and right both the sides. d. Remove the leading whitespaces from the given string. e. Find the reverse of given string.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Manipulation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>String Manipulation Form</h2>
+<form id="stringForm">
+    <label for="inputString">Enter a string:</label><br>
+    <textarea id="inputString" rows="4" cols="50" required></textarea><br><br>
+    <button type="button" onclick="performOperations()">Submit</button>
+</form>
+<div class="result" id="resultContainer"></div>
+<script>
+    function performOperations() {
+        const inputString = document.getElementById('inputString').value;
+        // a. Select first 5 words
+        const words = inputString.split(' ').slice(0, 5).join(' ');
+        // b. Convert to lowercase and then to Title case
+        const lowerCase = inputString.toLowerCase();
+        const titleCase = lowerCase.replace(/\b\w/g, char => char.toUpperCase());
+        // c. Pad with "*" from left and right
+        const paddedString = `*${inputString}*`;
+        // d. Remove leading whitespaces
+        const trimmedString = inputString.trimStart();
+        // e. Find the reverse of the string
+        const reversedString = inputString.split('').reverse().join('');
+        // Display results
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = `
+            <h3>Results:</h3>
+            <p><strong>First 5 words:</strong> ${words}</p>
+            <p><strong>Lowercase:</strong> ${lowerCase}</p>
+            <p><strong>Title Case:</strong> ${titleCase}</p>
+            <p><strong>Padded String:</strong> ${paddedString}</p>
+            <p><strong>Trimmed String:</strong> ${trimmedString}</p>
+            <p><strong>Reversed String:</strong> ${reversedString}</p>
+        `;
+    }
+</script>
+</body>
+</html>
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options. [10]
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Generate a random array of 50 integers between 1 and 100
+random_array = np.random.randint(1, 101, size=50)
+# Set the style for the plots
+sns.set(style="whitegrid")
+# Create a figure with subplots
+fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+# Line Chart
+axs[0, 0].plot(random_array, color='blue', marker='o', linestyle='-', linewidth=2)
+axs[0, 0].set_title('Line Chart of Random Integers')
+axs[0, 0].set_xlabel('Index')
+axs[0, 0].set_ylabel('Value')
+# Scatter Plot
+axs[0, 1].scatter(range(len(random_array)), random_array, color='orange')
+axs[0, 1].set_title('Scatter Plot of Random Integers')
+axs[0, 1].set_xlabel('Index')
+axs[0, 1].set_ylabel('Value')
+# Histogram
+axs[1, 0].hist(random_array, bins=10, color='green', edgecolor='black')
+axs[1, 0].set_title('Histogram of Random Integers')
+axs[1, 0].set_xlabel('Value')
+axs[1, 0].set_ylabel('Frequency')
+# Box Plot
+sns.boxplot(data=random_array, ax=axs[1, 1], color='lightblue')
+axs[1, 1].set_title('Box Plot of Random Integers')
+axs[1, 1].set_ylabel('Value')
+# Adjust layout
+plt.tight_layout()
+plt.show()
+Q.2 B) Create two lists, one representing subject names and the other representing marks obtained in those subjects. Display the data in a pie chart. [5]  
+import matplotlib.pyplot as plt
+# Subject names and corresponding marks
+subjects = ['Math', 'English', 'Science', 'History', 'Art']
+marks = [85, 78, 92, 67, 88]
+# Create a pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(marks, labels=subjects, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+plt.title('Marks Distribution in Subjects')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.show()
