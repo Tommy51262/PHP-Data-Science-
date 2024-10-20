@@ -1,0 +1,134 @@
+Q.1) Write a menu driven program to perform various file operations. Accept filename from user. [15] a) Display type of file. b) Display last modification time of file c) Display the size of file d) Delete the file
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Operations</title>
+</head>
+<body>
+
+<h2>File Operations Menu</h2>
+
+<form method="POST" action="">
+    <label for="filename">Enter the filename:</label><br>
+    <input type="text" name="filename" required><br><br>
+    
+    <input type="submit" value="Submit">
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $filename = $_POST['filename'];
+
+    // Check if the file exists
+    if (file_exists($filename)) {
+        echo "<h3>File Operations:</h3>";
+        echo "<ul>";
+        
+        // a) Display type of file
+        $fileType = filetype($filename);
+        echo "<li>File Type: " . htmlspecialchars($fileType) . "</li>";
+
+        // b) Display last modification time of file
+        $lastModified = date("F d Y H:i:s.", filemtime($filename));
+        echo "<li>Last Modified: " . htmlspecialchars($lastModified) . "</li>";
+
+        // c) Display the size of the file
+        $fileSize = filesize($filename);
+        echo "<li>File Size: " . htmlspecialchars($fileSize) . " bytes</li>";
+
+        // d) Delete the file
+        echo '<form method="POST" action="">
+                <input type="hidden" name="filename" value="' . htmlspecialchars($filename) . '">
+                <input type="submit" name="delete" value="Delete File" onclick="return confirm(\'Are you sure you want to delete this file?\');">
+              </form>';
+        
+        echo "</ul>";
+
+        // Handle file deletion
+        if (isset($_POST['delete'])) {
+            if (unlink($filename)) {
+                echo "<p>File '$filename' has been deleted successfully.</p>";
+            } else {
+                echo "<p>Error: Unable to delete the file '$filename'.</p>";
+            }
+        }
+    } else {
+        echo "<p>Error: The file '$filename' does not exist.</p>";
+    }
+}
+?>
+
+</body>
+</html>
+
+Q.2 A) Generate a random array of 50 integers and display them using a line chart, scatter plot, histogram and box plot. Apply appropriate color, labels and styling options. [10] 
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set the random seed for reproducibility
+np.random.seed(42)
+
+# Q.2 A) Generate a random array of 50 integers
+random_data = np.random.randint(1, 101, size=50)
+
+# Display the data
+print("Random Array of 50 Integers:")
+print(random_data)
+
+# Line Chart
+plt.figure(figsize=(10, 6))
+plt.plot(random_data, marker='o', color='b', linestyle='-', linewidth=2, markersize=5)
+plt.title('Line Chart of Random Integers')
+plt.xlabel('Index')
+plt.ylabel('Value')
+plt.grid(True)
+plt.show()
+
+# Scatter Plot
+plt.figure(figsize=(10, 6))
+plt.scatter(range(len(random_data)), random_data, color='g', s=50)
+plt.title('Scatter Plot of Random Integers')
+plt.xlabel('Index')
+plt.ylabel('Value')
+plt.grid(True)
+plt.show()
+
+# Histogram
+plt.figure(figsize=(10, 6))
+sns.histplot(random_data, bins=10, kde=True, color='purple')
+plt.title('Histogram of Random Integers')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.grid(True)
+plt.show()
+
+# Box Plot
+plt.figure(figsize=(10, 6))
+sns.boxplot(y=random_data, color='orange')
+plt.title('Box Plot of Random Integers')
+plt.ylabel('Value')
+plt.grid(True)
+plt.show()
+
+Q.2 B) Create two lists, one representing subject names and the other representing marks obtained in those subjects. Display the data in a pie chart.
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+//# Q.2 B) Create two lists for subject names and marks
+subjects = ['Math', 'Science', 'English', 'History', 'Geography']
+marks = [85, 90, 78, 88, 92]
+
+# Display the data in a pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(marks, labels=subjects, autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel'))
+plt.title('Marks Distribution by Subject')
+plt.axis('equal')  # Equal aspect ratio ensures that pie chart is circular.
+plt.show()
+
+
